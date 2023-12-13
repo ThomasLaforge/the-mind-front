@@ -6,21 +6,23 @@ socket.on("connect", () => {
   console.log("connected");
 });
 
-socket.on("disconnect", () => {
-  console.log("disconnected");
-});
-
-socket.on("patate", (message) => {
+socket.on("message", (message) => {
   console.log(message);
 });
 
-const form = document.getElementById('form') as HTMLFormElement;
-const input = document.getElementById('input') as HTMLInputElement;
+const gamePreparation = document.createElement("div");
+gamePreparation.classList.add("game-preparation");
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  if (input.value) {
-    socket.emit('chat message', input.value);
-    input.value = '';
-  }
+const GP_Title = document.createElement("h1");
+GP_Title.innerText = "Game preparation";
+gamePreparation.appendChild(GP_Title);
+
+const GP_Status = document.createElement("p");
+GP_Status.innerText = "Waiting for players...";
+gamePreparation.appendChild(GP_Status)
+
+document.body.appendChild(gamePreparation);
+
+socket.on("partieprete", () => {
+  GP_Status.innerText = "Game is ready !";
 });
