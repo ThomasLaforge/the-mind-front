@@ -10,6 +10,17 @@ socket.on("disconnect", () => {
   console.log("disconnected");
 });
 
-socket.on("message", (message) => {
+socket.on("patate", (message) => {
   console.log(message);
+});
+
+const form = document.getElementById('form') as HTMLFormElement;
+const input = document.getElementById('input') as HTMLInputElement;
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (input.value) {
+    socket.emit('chat message', input.value);
+    input.value = '';
+  }
 });
